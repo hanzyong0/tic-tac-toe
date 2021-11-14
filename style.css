@@ -6,6 +6,7 @@
 html,
 body {
     height: 100%;
+    overflow: hidden;
 }
 
 h1 {
@@ -13,8 +14,22 @@ h1 {
     margin: 30px;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 100px;
+}
+
+.display {
+    border: 1px solid black;
+    width: 200px;
+    height: 50px;
+    margin-left: 100px;   
+    font-size: 1em; 
+}
+
 .board {
-    margin: auto;
     width: 500px;
     height: 500px;
     border: 5px solid black;
@@ -30,4 +45,11 @@ h1 {
 .cell {
     flex: 1;
     cursor: pointer;
+    font-size: 2em;
+}
+
+.reset {
+    margin: 0 100px 0 50px;
+    padding: 10px;
+    font-size: 1em;
 }
