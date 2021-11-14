@@ -16,6 +16,7 @@ const player2 = Player('Player 2', 'O');
 // Game module IIFE
 const Game = (() => {
     const { board } = GameBoard;
+    const display = document.querySelector('.display');
 
     let winningPlayer = '';
     let symbol = '';
@@ -38,16 +39,16 @@ const Game = (() => {
             board[index] = player1.symbol;
             e.target.textContent = player1.symbol;
         };
-        console.log(symbol);
-        console.log(board);
         checkWinner();
     };
 
     const cells = document.querySelectorAll('.cell');
 
-    cells.forEach((cell) => {
-        cell.addEventListener('click', playerSelection);
-    });
+    const addClick = () => {
+        cells.forEach((cell) => {
+            cell.addEventListener('click', playerSelection);
+        });
+    };
 
     const removeClick = () => {
         cells.forEach((cell) => {
@@ -57,56 +58,74 @@ const Game = (() => {
 
     const checkWinner = (() => {
         const { board } = GameBoard;
-        const display = document.querySelector('.display');
         if (board[0] !== '' && board[0] === board[1] && board[1] === board[2]) {
             display.textContent = `${winningPlayer} Wins!`
+            symbol = '';
             removeClick();
         };
         if (board[3] !== '' && board[3] === board[4] && board[4] === board[5]) {
             display.textContent = `${winningPlayer} Wins!`
+            symbol = '';
             removeClick();
         };
         if (board[6] !== '' && board[6] === board[7] && board[7] === board[8]) {
             display.textContent = `${winningPlayer} Wins!`
+            symbol = '';
             removeClick();
         };
         if (board[0] !== '' && board[0] === board[3] && board[3] === board[6]) {
             display.textContent = `${winningPlayer} Wins!`
+            symbol = '';
             removeClick();
         };
         if (board[1] !== '' && board[1] === board[4] && board[4] === board[7]) {
             display.textContent = `${winningPlayer} Wins!`
+            symbol = '';
             removeClick();
         };
         if (board[2] !== '' && board[2] === board[5] && board[5] === board[8]) {
             display.textContent = `${winningPlayer} Wins!`
-            display.textContent = `${winningPlayer} Wins!`
+            symbol = '';
             removeClick();
         };
         if (board[0] !== '' && board[0] === board[4] && board[4] === board[8]) {
             display.textContent = `${winningPlayer} Wins!`
+            symbol = '';
             removeClick();
         };
         if (board[2] !== '' && board[2] === board[4] && board[4] === board[6]) {
             display.textContent = `${winningPlayer} Wins!`
+            symbol = '';
             removeClick();
         };
         if (board[0] !== '' && board[1] !== '' && board[2] !== '' && board[3] !== ''
             && board[4] !== '' && board[5] !== '' && board[6] !== '' && board[7] !== '' &&
             board[8] !== '') {
             display.textContent = `Draw!`
+            symbol = '';
             removeClick();
         };
     });
-    return {};
+    addClick();
+    display.textContent = 'Game Start!';
+
+    return { addClick };
 })();
 
 // Reset module IIFE
-// const reset = (() => {
-//     const resetBtn = document.querySelector('.reset');
+const reset = (() => {
+    const { board } = GameBoard;
+    const resetBtn = document.querySelector('.reset');
+    const display = document.querySelector('.display');
 
-//     resetBtn.addEventListener('click', () => {
-
-//     })
-// })();
+    resetBtn.addEventListener('click', () => {
+        for (let i = 0; i < board.length; i++) {
+            const index = document.querySelector(`button[id='${i}']`);
+            board[i] = '';
+            index.textContent = '';
+            display.textContent = 'Game Start!'
+            Game.addClick();
+        };
+    });
+})();
 
